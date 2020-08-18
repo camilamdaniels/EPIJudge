@@ -1,16 +1,41 @@
 package epi;
 import epi.test_framework.EpiTest;
+
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 public class DutchNationalFlag {
   public enum Color { RED, WHITE, BLUE }
 
   public static void dutchFlagPartition(int pivotIndex, List<Color> A) {
     // TODO - you fill in here.
+	  
+	int pivot = A.get(pivotIndex).ordinal();
+
+	int left = 0;
+	for (int i = A.size() - 1; i >= left; i--) {
+		if (A.get(left).ordinal() < pivot) left++;
+		
+		if (A.get(i).ordinal() < pivot) {
+			Collections.swap(A, left, i);
+			left++;
+		}
+	}
+	
+	int right = A.size() - 1;
+	for (int i = 0; i < right; i++) {
+		if (A.get(right).ordinal() > pivot) right--;
+		
+		if (A.get(i).ordinal() > pivot) {
+			Collections.swap(A, right, i);
+			right--;
+		}
+	}
+	
     return;
   }
   @EpiTest(testDataFile = "dutch_national_flag.tsv")
